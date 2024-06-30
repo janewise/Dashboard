@@ -59,7 +59,7 @@ const Dashboard = () => {
         <ul>
           {Object.keys(userData).map((userId) => (
             <li key={userId}>
-              UserID: {userId}, Auto Increment: {userData[userId].autoIncrement}
+              UserID: {userId}, Profit per Hour: {userData[userId].autoIncrement*3600}
             </li>
           ))}
         </ul>
