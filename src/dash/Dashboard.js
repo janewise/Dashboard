@@ -40,7 +40,7 @@
 
 // export default Dashboard;
 import React, { useEffect, useState } from 'react';
-import { listenToUserData } from '../firebase'; // Import the function to listen for data
+import { listenToUserData } from '../firebaseFunctions'; // Import the function to listen for data
 
 const Dashboard = () => {
   const [userData, setUserData] = useState(null);
