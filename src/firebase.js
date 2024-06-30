@@ -1,0 +1,23 @@
+// src/firebase.js
+import firebase from 'firebase/app';
+import { getAnalytics } from "firebase/analytics";
+import 'firebase/database'; //'firebase/firestore' or 'firebase/database' if using Realtime Database
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBb0STZdIj74Esu1kuuoDWlBsvCy-z1Bk4",
+    authDomain: "bitbrawl-404.firebaseapp.com",
+    databaseURL: "https://bitbrawl-404-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "bitbrawl-404",
+    storageBucket: "bitbrawl-404.appspot.com",
+    messagingSenderId: "403464469352",
+    appId: "1:403464469352:web:ad6b3e3f44ab2da96374dd",
+    measurementId: "G-PTE8NYVB75"
+  };
+
+// Initialize Firebase
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+// Initialize Firestore or Realtime Database
+const db = firebaseApp.database(); //firebaseApp.firestore(); or firebaseApp.database();
+
+export { db };
