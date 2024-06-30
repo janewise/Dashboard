@@ -1,55 +1,51 @@
-// // src/Dashboard.js
+
+// // export default Dashboard;
 // import React, { useEffect, useState } from 'react';
-// import { fetchUserDataFromFirebase } from './firebaseFunctions';
+// import { listenToUserData } from '../firebaseFunctions'; // Import the function to listen for data
 
 // const Dashboard = () => {
-//   const [users, setUsers] = useState([]);
+//   const [userData, setUserData] = useState(null);
 
 //   useEffect(() => {
-//     fetchUserDataFromFirebase().then(setUsers);
+//     // Listen for changes in user data
+//     listenToUserData((data) => {
+//       setUserData(data); // Update state with the received data
+//     });
 //   }, []);
 
 //   return (
 //     <div>
-//       <h1>User Dashboard</h1>
-//       <table>
-//         <thead>
-//           <tr>
-//             <th>Telegram ID</th>
-//             <th>First Name</th>
-//             <th>Last Name</th>
-//             <th>Username</th>
-//             <th>Entered At</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {users.map(user => (
-//             <tr key={user.id}>
-//               <td>{user.telegramId}</td>
-//               <td>{user.firstName}</td>
-//               <td>{user.lastName}</td>
-//               <td>{user.username}</td>
-//               <td>{new Date(user.enteredAt.seconds * 1000).toLocaleString()}</td>
-//             </tr>
+//       <h1>User Data</h1>
+//       {userData ? (
+//         <ul>
+//           {Object.keys(userData).map((userId) => (
+//             <li key={userId}>
+//               UserID: {userId}, Profit per Hour: {userData[userId].autoIncrement*3600}
+//             </li>
 //           ))}
-//         </tbody>
-//       </table>
+//         </ul>
+//       ) : (
+//         <p>Loading...</p>
+//       )}
 //     </div>
 //   );
 // };
 
 // export default Dashboard;
+
 import React, { useEffect, useState } from 'react';
-import { listenToUserData } from '../firebaseFunctions'; // Import the function to listen for data
+import { listenToUserData } from '../firebaseFunctions'; // Assuming this function correctly sets up the listener
 
 const Dashboard = () => {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    // Listen for changes in user data
-    listenToUserData((data) => {
+    const unsubscribe = listenToUserData((data) => {
       setUserData(data); // Update state with the received data
     });
+
+    // Cleanup function (if necessary)
+    return () => unsubscribe(); // Ensure to unsubscribe if component unmounts
   }, []);
 
   return (
@@ -59,7 +55,7 @@ const Dashboard = () => {
         <ul>
           {Object.keys(userData).map((userId) => (
             <li key={userId}>
-              UserID: {userId}, Profit per Hour: {userData[userId].autoIncrement*3600}
+              UserID: {userId}, Profit per Hour: {userData[userId].autoIncrement * 3600}
             </li>
           ))}
         </ul>
@@ -71,3 +67,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
